@@ -1,6 +1,7 @@
 package com.example.layeredarchitecture.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 
 public class CustomerDTO implements Serializable {
@@ -50,3 +51,16 @@ public class CustomerDTO implements Serializable {
                 '}';
     }
 }
+
+    //public String getCode() {
+    //}
+
+    //public String getDescription() {
+    //}
+
+   // public BigDecimal getUnitPrice() {
+   // }
+
+    //public int getQtyOnHand() {
+
+//}
