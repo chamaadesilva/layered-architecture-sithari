@@ -78,10 +78,6 @@ public class ItemDAOImpl implements ItemDAO {
         return null;
     }
 
-    @Override
-    public ArrayList<ItemDTO> loardAllItemCodes() {
-        return null;
-    }
 
 
 }

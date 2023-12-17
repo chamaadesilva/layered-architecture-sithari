@@ -72,10 +72,5 @@ public class CustomerDAOImpl implements CustomerDAO{
         return null;
     }
 
-    @Override
-    public ArrayList<CustomerDTO> LoardAllCustomerIds() {
-        return null;
-    }
-
 
 }

@@ -27,5 +27,4 @@ public interface CustomerDAO {
 
     CustomerDTO searchCustomer(String newValue);
 
-    ArrayList<CustomerDTO> LoardAllCustomerIds();
 }

@@ -20,5 +20,4 @@ public interface ItemDAO {
 
     ItemDTO findItem(String newItemCode);
 
-    ArrayList<ItemDTO> loardAllItemCodes();
 }

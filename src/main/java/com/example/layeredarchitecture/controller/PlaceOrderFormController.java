@@ -230,12 +230,12 @@ public class PlaceOrderFormController {
         return "OID-001";
     }
 
-    private void loadAllCustomerIds() {
+    private void loadAllCustomerIds() throws SQLException, ClassNotFoundException {
         /*  Connection connection = DBConnection.getDbConnection().getConnection();
           Statement stm = connection.createStatement();
           ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
 
-        ArrayList<CustomerDTO> allCustomerIds = customerDAO.LoardAllCustomerIds();
+        ArrayList<CustomerDTO> allCustomerIds = customerDAO.getAllCustomer();
         for (CustomerDTO dto:allCustomerIds) {
             cmbCustomerId.getItems().add(dto.getId());
         }
@@ -246,7 +246,7 @@ public class PlaceOrderFormController {
 
     }
 
-    private void loadAllItemCodes() {
+    private void loadAllItemCodes() throws SQLException, ClassNotFoundException {
         //Get all items/
             /*Connection connection = DBConnection.getDbConnection().getConnection();
             Statement stm = connection.createStatement();
@@ -254,7 +254,7 @@ public class PlaceOrderFormController {
             while (rst.next()) {
                 cmbItemCode.getItems().add(rst.getString("code"));
             }*/
-        ArrayList<ItemDTO> allItemCodes = itemDAO.loardAllItemCodes();
+        ArrayList<ItemDTO> allItemCodes = itemDAO.getAllItem();
         for (ItemDTO dto:allItemCodes) {
             cmbItemCode.getItems().add(dto.getCode());
         }
