@@ -66,4 +66,16 @@ public class CustomerDAOImpl implements CustomerDAO{
         ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
         return rst;
     }
+
+    @Override
+    public CustomerDTO searchCustomer(String newValue) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<CustomerDTO> LoardAllCustomerIds() {
+        return null;
+    }
+
+
 }

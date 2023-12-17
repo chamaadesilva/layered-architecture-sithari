@@ -1,7 +1,6 @@
 package com.example.layeredarchitecture.Dao;
 
 import com.example.layeredarchitecture.db.DBConnection;
-import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 
 import java.sql.*;
@@ -38,7 +37,7 @@ public class ItemDAOImpl implements ItemDAO {
         return pstm.executeUpdate() > 0;
     }
 @Override
-    public void updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET name=?, address=? WHERE id=?");
         pstm.setString(1, dto.getCode());
@@ -46,7 +45,8 @@ public class ItemDAOImpl implements ItemDAO {
         pstm.setBigDecimal(3, dto.getUnitPrice());
         pstm.setInt(4,dto.getQtyOnHand());
         pstm.executeUpdate() ;
-    }
+    return false;
+}
     @Override
     public boolean existItem(String code) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
@@ -72,6 +72,18 @@ public class ItemDAOImpl implements ItemDAO {
         return rst;
 
     }
+
+    @Override
+    public ItemDTO findItem(String newItemCode) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<ItemDTO> loardAllItemCodes() {
+        return null;
+    }
+
+
 }
 
 
