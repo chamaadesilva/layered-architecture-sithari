@@ -1,8 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.Dao.ItemDAO;
-import com.example.layeredarchitecture.Dao.ItemDAOImpl;
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.Dao.Custom.ItemDAO;
+import com.example.layeredarchitecture.Dao.Impl.ItemDAOImpl;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
@@ -72,7 +71,7 @@ public class ManageItemsFormController {
     private void loadAllItems() {
         tblItems.getItems().clear();
         try {
-            //Get all items
+            /*Get all items*/
            /* Connection connection = DBConnection.getDbConnection().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Item");
@@ -81,7 +80,7 @@ public class ManageItemsFormController {
                 tblItems.getItems().add(new ItemTM(rst.getString("code"), rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand")));
             }*/
 
-                    ArrayList<ItemDTO> allItem = itemDAO.getAllItem();
+            ArrayList<ItemDTO> allItem = itemDAO.getAll();
 
             for (ItemDTO dto: allItem) {
                 tblItems.getItems().add(
@@ -143,7 +142,7 @@ public class ManageItemsFormController {
     }
 
     public void btnDelete_OnAction(ActionEvent actionEvent) {
-        //Delete Item
+        /*Delete Item*/
         String code = tblItems.getSelectionModel().getSelectedItem().getCode();
         try {
             if (!existItem(code)) {
@@ -155,7 +154,7 @@ public class ManageItemsFormController {
             pstm.executeUpdate();*/
 
 
-            itemDAO.deleteItem(code);
+            itemDAO.delete(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -204,7 +203,7 @@ public class ManageItemsFormController {
                 pstm.executeUpdate();*/
 
 
-                boolean isSaved =itemDAO.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+                boolean isSaved =itemDAO.save(new ItemDTO(code,description,unitPrice,qtyOnHand));
                 if(isSaved){
                     tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
                 }
@@ -221,7 +220,7 @@ public class ManageItemsFormController {
                 if (!existItem(code)) {
                     new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
                 }
-                //Update Item
+                /*Update Item*/
                /* Connection connection = DBConnection.getDbConnection().getConnection();
                 PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
                 pstm.setString(1, description);
@@ -232,7 +231,7 @@ public class ManageItemsFormController {
 
                 ItemDTO dto = new ItemDTO(code,description,unitPrice,qtyOnHand);
 
-                itemDAO.updateItem(dto);
+                itemDAO.update(dto);
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
@@ -256,7 +255,7 @@ public class ManageItemsFormController {
         pstm.setString(1, code);
         return pstm.executeQuery().next();*/
 
-        boolean isExist = itemDAO.existItem(code);
+        boolean isExist = itemDAO.exist(code);
         if(isExist){
             return true;
         }

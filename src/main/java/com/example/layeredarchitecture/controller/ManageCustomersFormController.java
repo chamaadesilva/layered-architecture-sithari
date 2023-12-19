@@ -1,8 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.Dao.CustomerDAO;
-import com.example.layeredarchitecture.Dao.CustomerDAOImpl;
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.Dao.Custom.CustomerDAO;
+import com.example.layeredarchitecture.Dao.Impl.CustomerDAOImpl;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
@@ -68,14 +67,14 @@ public class ManageCustomersFormController {
 
     private void loadAllCustomers() {
         tblCustomers.getItems().clear();
-        //Get all customers
+        /*Get all customers*/
         try {
            /* Connection connection = DBConnection.getDbConnection().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
 */
 
-            ArrayList<CustomerDTO> allCustomer = customerDAO.getAllCustomer();
+            ArrayList<CustomerDTO> allCustomer = customerDAO.getAll();
             for (CustomerDTO dto : allCustomer) {
                 tblCustomers.getItems().add(
                         new CustomerTM(
@@ -152,7 +151,7 @@ public class ManageCustomersFormController {
         }
 
         if (btnSave.getText().equalsIgnoreCase("save")) {
-            //Save Customer
+            /*Save Customer*/
             try {
                 if (existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
@@ -164,7 +163,7 @@ public class ManageCustomersFormController {
                 pstm.setString(3, address);
                 pstm.executeUpdate();*/
 
-                boolean isSaved = customerDAO.saveCustomer(new CustomerDTO(id,name,address));
+                boolean isSaved = customerDAO.save(new CustomerDTO(id,name,address));
                 if (isSaved) {
                     tblCustomers.getItems().add(new CustomerTM(id, name, address));
                 }
@@ -176,13 +175,13 @@ public class ManageCustomersFormController {
 
 
         } else {
-            //Update customer
+            /*Update customer*/
             try {
                 if (!existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
                 CustomerDTO dto = new CustomerDTO(id,name,address);
-                customerDAO.updateCustomer(dto);
+                customerDAO.update(dto);
 
 
 
@@ -216,7 +215,7 @@ public class ManageCustomersFormController {
         return pstm.executeQuery().next();*/
 
 
-        boolean isExist = customerDAO.existCustomer(id);
+        boolean isExist = customerDAO.exist(id);
         if (isExist){
             return true;
         }
@@ -225,7 +224,7 @@ public class ManageCustomersFormController {
 
 
     public void btnDelete_OnAction(ActionEvent actionEvent) {
-        //Delete Customer
+        /*Delete Customer*/
         String id = tblCustomers.getSelectionModel().getSelectedItem().getId();
         try {
             if (!existCustomer(id)) {
@@ -233,7 +232,7 @@ public class ManageCustomersFormController {
             }
 
 
-            customerDAO.deleteCustomer(id);
+            customerDAO.delete(id);
 
            /* Connection connection = DBConnection.getDbConnection().getConnection();
             PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
@@ -292,3 +291,4 @@ public class ManageCustomersFormController {
     }
 
 }
+
